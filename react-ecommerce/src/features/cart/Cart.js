@@ -1,6 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { increment, incrementAsync, selectItems, updateCartAsync } from "./cartSlice";
+import {
+  increment,
+  incrementAsync,
+  selectItems,
+  updateCartAsync,
+} from "./cartSlice";
 
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -9,42 +14,45 @@ import { Link } from "react-router-dom";
 const products = [
   {
     id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '$90.00',
+    name: "Throwback Hip Bag",
+    href: "#",
+    color: "Salmon",
+    price: "$90.00",
     quantity: 1,
     imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg",
     imageAlt:
-      'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+      "Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.",
   },
-{
+  {
     id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '$32.00',
+    name: "Medium Stuff Satchel",
+    href: "#",
+    color: "Blue",
+    price: "$32.00",
     quantity: 1,
     imageSrc:
-      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
+      "https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg",
     imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+      "Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.",
   },
   // More products...
 ];
 
-export default function Cart() {
+const Cart = () => {
   const items = useSelector(selectItems);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(true);
 
- const totalAmount = items.reduce((amount, item) => item.price*item.quantity +amount,0) 
- const totalItems = items.reduce((total, item) =>item.quantity + total,0) 
+  const totalAmount = items.reduce(
+    (amount, item) => item.price * item.quantity + amount,
+    0
+  );
+  const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
- const handleQuantity =(e, item)=>{
-  dispatch(updateCartAsync({...item, quantity: +e.target.value}))
- }
+  const handleQuantity = (e, item) => {
+    dispatch(updateCartAsync({ ...item, quantity: +e.target.value }));
+  };
 
   return (
     <>
@@ -86,7 +94,7 @@ export default function Cart() {
                           >
                             Qty
                           </label>
-                          <select onChange={(e)=>handleQuantity(e,item)}>
+                          <select onChange={(e) => handleQuantity(e, item)}>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -130,19 +138,19 @@ export default function Cart() {
             >
               Checkout
             </Link>
-          </div>  
+          </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <p>
               or{" "}
-              <Link to= "/">
-              <button
-                type="button"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-                onClick={() => setOpen(false)}
-              >
-                Continue Shopping
-                <span aria-hidden="true"> &rarr;</span>
-              </button>
+              <Link to="/">
+                <button
+                  type="button"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  onClick={() => setOpen(false)}
+                >
+                  Continue Shopping
+                  <span aria-hidden="true"> &rarr;</span>
+                </button>
               </Link>
             </p>
           </div>
@@ -150,4 +158,6 @@ export default function Cart() {
       </div>
     </>
   );
-}
+};
+
+export default Cart;
